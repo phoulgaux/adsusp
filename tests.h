@@ -12,6 +12,7 @@ void testDrive() {
     setDrivePower(-1000);
     sys.delay_ms(500);
     setDrivePower(0);
+    sys.delay_ms(500);
 }
 
 void testSteer(int angle) {
@@ -29,13 +30,9 @@ void testSteer(int angle) {
 
 void allTests() {
     testDrive();
-    sys.delay_ms(500);
     testSteer(20);
-    sys.delay_ms(500);
     testSteer(60);
-    sys.delay_ms(500);
     testSteer(90);
-    sys.delay_ms(500);
 }
 
 #endif // TESTS_H_INCLUDED

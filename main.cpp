@@ -20,8 +20,7 @@ void hMain(void)
 	for (;;)
 	{
 	    LED1.on();
-	    hMot1.setPower(200);
-		//allTests();
+		allTests();
 		LED1.off();
 		sys.delay_ms(2000);
 	}

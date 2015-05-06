@@ -133,7 +133,11 @@
 		<Unit filename="../include/sensors/lego-touch.h" />
 		<Unit filename="../include/sensors/lego-ultrasonic.h" />
 		<Unit filename="../include/sensors/lego.h" />
+		<Unit filename=".gitignore" />
 		<Unit filename="main.cpp" />
+		<Unit filename="motor.h" />
+		<Unit filename="sensors.h" />
+		<Unit filename="tests.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
