@@ -20,12 +20,15 @@ using namespace hSensors;
 #include "motor.h"
 #include "tests.h"
 
+Lego_Ultrasonic sono(hSens1);
+
+void init() {
+	sys.setLogDev(&Serial);
+    setSteerAngle(0);
+}
+
 void hMain(void)
 {
-	sys.setLogDev(&Serial);
-
-	Lego_Ultrasonic sono(hSens1);
-
 	for (;;)
 	{
 	    LED1.on();
