@@ -4,6 +4,7 @@
 #include "hFramework.h"
 
 #include "motor.h"
+#include "sensors.h"
 
 void testDrive() {
     setDrivePower(0);
@@ -16,23 +17,22 @@ void testDrive() {
 }
 
 void testSteer(int angle) {
-    setSteerAngle(0);
+    returnSteer();
     sys.delay_ms(500);
     setSteerAngle(angle);
     sys.delay_ms(500);
-    setSteerAngle(0);
+    returnSteer();
     sys.delay_ms(500);
     setSteerAngle(-angle);
     sys.delay_ms(500);
-    setSteerAngle(0);
+    returnSteer();
     sys.delay_ms(500);
 }
 
 void allTests() {
     testDrive();
-    testSteer(20);
-    testSteer(60);
-    testSteer(90);
+    testSteer(maxRightAngle);
+    sonoScanAndSet();
 }
 
 #endif // TESTS_H_INCLUDED
