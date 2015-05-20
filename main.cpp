@@ -16,6 +16,7 @@
 
 #include "hFramework.h"
 #include "hMotor.h"
+#include "hButton.h"
 #include "Lego_Ultrasonic.h"
 #include "sensors/Hitechnic_Accel.h"
 
@@ -26,11 +27,15 @@ const int maxRightAngle = 80;
 const int maxLeftAngle = -maxRightAngle;
 const int scanResolution = 10;
 const int scanStep = (maxRightAngle - maxLeftAngle) / scanResolution;
+const int cruisePower = 800;
+const int SuspensionExtensionEncoderCount = 10000;
 
 Lego_Ultrasonic sono(hSens1);
 Hitechnic_Accel accel = Hitechnic_Accel(hSens2);
+
 float x, y, z;
 int shake;
+bool obstacle = true;
 
 void setDrivePower(int power) {
     hMot1.setPower(power);
@@ -45,42 +50,12 @@ void returnSteer() {
     setSteerAngle(0);
 }
 
-// tests
-void testDrive() {
-    setDrivePower(0);
-    setDrivePower(1000);
-    sys.delay_ms(500);
-    setDrivePower(-1000);
-    sys.delay_ms(500);
-    setDrivePower(0);
-    sys.delay_ms(500);
+void retractSuspension() {
+    hMot4.rotAbs(0);
 }
 
-void testSteer(int angle) {
-    returnSteer();
-    sys.delay_ms(500);
-    setSteerAngle(angle);
-    sys.delay_ms(500);
-    returnSteer();
-    sys.delay_ms(500);
-    setSteerAngle(-angle);
-    sys.delay_ms(500);
-    returnSteer();
-    sys.delay_ms(500);
-}
-
-void testAccel() {
-    hMot1.setPower(shake);
-}
-
-void allTests() {
-    //testDrive();
-    //testSteer(maxRightAngle);
-    //sonoScanAndSet();
-    for(;;) {
-        testAccel();
-        LED2.on(); sys.delay_ms(10); LED2.off(); sys.delay_ms(10);
-    }
+void extendSuspension() {
+    hMot4.rotAbs(SuspensionExtensionEncoderCount);
 }
 
 // sensors
@@ -119,22 +94,28 @@ void accelReadShake() {
         mean /= 10;
         for (int i = 0; i < 10; ++i)
             sum_deviation += (data[i] - mean) * (data[i] - mean);
-        shake = (int)(sqrt(sum_deviation/10)*500); // todo: change to actual shake
+        shake = (int)(sqrt(sum_deviation/10)*200);
     }
 }
 
 void init() {
 	sys.setLogDev(&Serial);
-    returnSteer();
     sys.taskCreate(accelReadShake);
+}
+
+void reset() {
+    returnSteer();
+    retractSuspension();
 }
 
 void hMain(void)
 {
     init();
-	for (;;)
-	{
+	while (!hBtn1.isPressed()) {
 	    LED1.toggle();
-
+	    setDrivePower(cruisePower);
+        while (!obstacle);
+        if (true);
 	}
+	reset();
 }
