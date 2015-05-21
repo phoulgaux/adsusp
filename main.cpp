@@ -14,11 +14,12 @@
 #include <cstdio>
 #include <cmath>
 
-#include "hFramework.h"
-#include "hMotor.h"
-#include "hButton.h"
-#include "Lego_Ultrasonic.h"
-#include "sensors/Hitechnic_Accel.h"
+#include "../include/hFramework.h"
+#include "../include/hMotor.h"
+#include "../include/hButton.h"
+#include "../include/hSensors/Lego_Ultrasonic.h"
+#include "../include/hSensors/Lego_Light.h"
+#include "../include/hSensors/Hitechnic_Accel.h"
 
 using namespace hFramework;
 using namespace hSensors;
@@ -30,12 +31,15 @@ const int scanStep = (maxRightAngle - maxLeftAngle) / scanResolution;
 const int cruisePower = 800;
 const int SuspensionExtensionEncoderCount = 10000;
 
-Lego_Ultrasonic sono(hSens1);
+Lego_Ultrasonic sono = Lego_Ultrasonic(hSens1);
 Hitechnic_Accel accel = Hitechnic_Accel(hSens2);
+Lego_Light eyes = Lego_Light(hSens3);
 
 float x, y, z;
 int shake;
-bool obstacle = true;
+bool obstacleLeft = true;
+bool obstacleRight = true;
+bool obstacle = obstacleLeft or obstacleRight;
 
 void setDrivePower(int power) {
     hMot1.setPower(power);
@@ -95,6 +99,25 @@ void accelReadShake() {
         for (int i = 0; i < 10; ++i)
             sum_deviation += (data[i] - mean) * (data[i] - mean);
         shake = (int)(sqrt(sum_deviation/10)*200);
+    }
+}
+
+void lookForObstacles(){
+    for (;;) {
+        int data = eyes.readRaw();
+        if (30 < data and data < 36) {
+                obstacleLeft = true;
+                obstacleRight = false;
+        }
+        if (63 < data and data < 69) {
+                obstacleLeft = false;
+                obstacleRight = true;
+        }
+        if (74 < data and data < 80) {
+                obstacleLeft = true;
+                obstacleRight = true;
+        }
+        obstacle = obstacleLeft and obstacleRight;
     }
 }
 

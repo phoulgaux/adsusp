@@ -78,7 +78,7 @@
 			<Add option="-DROBOCORE_0_9_7" />
 			<Add directory="../include" />
 			<Add directory="../include/hCloudClient" />
-			<Add directory="../include/sensors" />
+			<Add directory="../include/hSensors" />
 		</Compiler>
 		<Linker>
 			<Add option="-T../stm32f4_linker.ld" />
@@ -87,7 +87,7 @@
 			<Add option="-mthumb" />
 			<Add option="-mfloat-abi=hard" />
 			<Add library="libhFramework" />
-			<Add library="libsensors" />
+			<Add library="libhSensors" />
 			<Add library="libhCloudClient" />
 			<Add directory="../libs/RoboCORE_0_9_7_big" />
 		</Linker>
@@ -121,23 +121,19 @@
 		<Unit filename="../include/hTypes.h" />
 		<Unit filename="../include/hUSB.h" />
 		<Unit filename="../include/hUtils.h" />
-		<Unit filename="../include/sensors/Hitechnic_Accel.h" />
-		<Unit filename="../include/sensors/Hitechnic_Compass.h" />
-		<Unit filename="../include/sensors/Hitechnic_Gyro.h" />
-		<Unit filename="../include/sensors/hitechnic-accelerometer.h" />
-		<Unit filename="../include/sensors/hitechnic-color-v2.h" />
-		<Unit filename="../include/sensors/hitechnic-gyro.h" />
-		<Unit filename="../include/sensors/hitechnic.h" />
-		<Unit filename="../include/sensors/lego-light.h" />
-		<Unit filename="../include/sensors/lego-sound.h" />
-		<Unit filename="../include/sensors/lego-touch.h" />
-		<Unit filename="../include/sensors/lego-ultrasonic.h" />
-		<Unit filename="../include/sensors/lego.h" />
-		<Unit filename=".gitignore" />
+		<Unit filename="../include/hSensors/Hitechnic_Accel.h" />
+		<Unit filename="../include/hSensors/Hitechnic_Compass.h" />
+		<Unit filename="../include/hSensors/Hitechnic_Gyro.h" />
+		<Unit filename="../include/hSensors/hitechnic-accelerometer.h" />
+		<Unit filename="../include/hSensors/hitechnic-color-v2.h" />
+		<Unit filename="../include/hSensors/hitechnic-gyro.h" />
+		<Unit filename="../include/hSensors/hitechnic.h" />
+		<Unit filename="../include/hSensors/lego-light.h" />
+		<Unit filename="../include/hSensors/lego-sound.h" />
+		<Unit filename="../include/hSensors/lego-touch.h" />
+		<Unit filename="../include/hSensors/lego-ultrasonic.h" />
+		<Unit filename="../include/hSensors/lego.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="motor.h" />
-		<Unit filename="sensors.h" />
-		<Unit filename="tests.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
